@@ -1,15 +1,21 @@
 from tkinter import *
 import time
 from datetime import datetime, timezone, timedelta
-from playsound import playsound 
+from playsound import playsound
+import msvcrt
 
 # clock mode in 12 hour format
 def clock_mode():
-        while True:
-            now = datetime.now()
-            print("Time:", now.strftime("%I:%M:%S %p"), end="\r")
-            time.sleep(1)
-
+    print("Press Enter to get menu")
+    while True:
+        now = datetime.now()
+        print("Time:", now.strftime("%I:%M:%S %p"), end="\r")
+        time.sleep(1)
+        if msvcrt.kbhit():
+            key = msvcrt.getch()
+            if key == b'\r':
+                print("\nReturning to menu")
+                break
 # playing sound from playsound 
 try:
     from playsound import playsound
@@ -95,7 +101,7 @@ def settings_mode():
     def twelve_format():
         choice = input("Choose time zone (IST/UTC): ").strip().upper()
         utc_now = datetime.now(timezone.utc)
-        Menu()
+        menu()
         if choice == "IST":
             ist_now = utc_now + timedelta(hours=5, minutes=30)
             current_time = ist_now.strftime("%I:%M:%S %p")
@@ -109,7 +115,7 @@ def settings_mode():
     def twentyfour_format():
         choice = input("Choose time zone (IST/UTC): ").strip().upper()
         utc_now = datetime.now(timezone.utc)
-        Menu()
+        menu()
         if choice == "IST":
             ist_now = utc_now + timedelta(hours=5, minutes=30)
             current_time = ist_now.strftime("%H:%M:%S")
