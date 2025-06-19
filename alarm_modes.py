@@ -1,4 +1,3 @@
-from tkinter import *
 import time
 from datetime import datetime, timezone, timedelta
 from playsound import playsound
